@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio - Dini Zafira</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #1e293b;
+            --secondary-color: #334155;
+            --accent-color: #3b82f6;
+            --text-color: #e2e8f0;
+            --light-text: #94a3b8;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhanced Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .loader-logo-inner {
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            animation: loaderPulse 2s infinite;
+        }
+
+        @keyframes loaderPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(102, 126, 234, 0.8); }
+        }
+
+        .loader-text {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .loader-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .loader-dot {
+            width: 15px;
+            height: 15px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            animation: loaderBounce 1.5s infinite;
+        }
+
+        .loader-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes loaderBounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Welcome Section */
+        #welcome {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #welcome::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .welcome-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInLeft 1s ease;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            margin-bottom: 2rem;
+            animation: fadeInLeft 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .typing-text {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            min-height: 30px;
+            animation: fadeInLeft 1s ease 0.4s;
+            animation-fill-mode: both;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .welcome-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInLeft 1s ease 0.6s;
+            animation-fill-mode: both;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .welcome-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInRight 1s ease;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .profile-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.5;
+            animation: glowPulse 3s infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; }
+        }
+
+        .profile-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 450px;
+            height: 450px;
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            animation: orbitRotate 20s infinite linear;
+        }
+
+        @keyframes orbitRotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .orbit-icon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .orbit-icon:nth-child(1) { top: -25px; left: 50%; transform: translateX(-50%); }
+        .orbit-icon:nth-child(2) { top: 50%; right: -25px; transform: translateY(-50%); }
+        .orbit-icon:nth-child(3) { bottom: -25px; left: 50%; transform: translateX(-50%); }
+        .orbit-icon:nth-child(4) { top: 50%; left: -25px; transform: translateY(-50%); }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        /* Personal Data Section */
+        .personal-data {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .personal-data-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-showcase {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-frame {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: transform 0.5s ease;
+        }
+
+        .profile-frame:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.05);
+        }
+
+        .profile-frame-inner {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .profile-frame-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-frame:hover .profile-frame-img {
+            transform: scale(1.1);
+        }
+
+        .profile-badges {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .badge {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: badgeFloat 3s infinite ease-in-out;
+        }
+
+        .badge:nth-child(2) { animation-delay: 0.5s; }
+        .badge:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        /* Education Section */
+        #education {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-4);
+            transition: left 0.5s ease;
+            opacity: 0.1;
+        }
+
+        .education-card:hover::before {
+            left: 0;
+        }
+
+        .education-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .education-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .education-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .education-institution {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .education-period {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .education-description {
+            font-size: 1rem;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .circular-progress {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .circular-progress svg {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            transform: rotate(-90deg);
+        }
+
+        .circular-progress svg circle {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke-width: 10;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-linecap: round;
+        }
+
+        .circular-progress svg circle:nth-child(2) {
+            stroke: url(#gradient);
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            transition: stroke-dashoffset 1.5s ease;
+        }
+
+        .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .skill-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .skill-level {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        /* Projects & Certificates Section */
+        #project, #certificates {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .projects-grid, .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card, .certificate-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover, .certificate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image-container, .certificate-image-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .project-image, .certificate-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image,
+        .certificate-card:hover .certificate-image {
+            transform: scale(1.1);
+        }
+
+        .project-overlay, .certificate-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay,
+        .certificate-card:hover .certificate-overlay {
+            opacity: 1;
+        }
+
+        .project-view-btn, .certificate-view-btn {
+            padding: 0.8rem 2rem;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-view-btn:hover, .certificate-view-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .project-content, .certificate-content {
+            padding: 2rem;
+        }
+
+        .project-title, .certificate-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .project-description, .certificate-issuer {
+            font-size: 1rem;
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .project-tech, .certificate-date {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-8px) rotate(360deg);
+            border-color: white;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+
+        /* Animation Classes */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .skills-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .skills-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .welcome-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .welcome-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile-img-container {
+                width: 300px;
+                height: 300px;
+            }
+
+            .orbit {
+                width: 350px;
+                height: 350px;
+            }
+
+            .personal-data-content {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-frame {
+                width: 250px;
+                height: 250px;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .circular-progress {
+                width: 140px;
+                height: 140px;
+            }
+
+            .circular-progress svg {
+                width: 140px;
+                height: 140px;
+            }
+
+            .percentage {
+                font-size: 1.5rem;
+            }
+
+            .welcome-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <div class="loader-logo-inner">
+                    <i class="fas fa-code"></i>
+                </div>
+            </div>
+            <div class="loader-text">Memuat Portfolio...</div>
+            <div class="loader-dots">
+                <div class="loader-dot"></div>
+                <div class="loader-dot"></div>
+                <div class="loader-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo"> Student Portofolio</div>
+            <ul class="nav-links">
+                <li><a href="#welcome">Home</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skill</a></li>
+                <li><a href="#project">Project</a></li>
+                <li><a href="#certificates">Certification</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="welcome">
+        <div class="container">
+            <div class="welcome-content">
+                <div class="welcome-text">
+                    <h1>Hi, I'm Dini Zafira</h1>
+                    <p class="subtitle">Information Systems Student</p>
+                    <div class="typing-text">
+                        <span id="typed-text"></span>
+                    </div>
+                    <div class="welcome-buttons">
+                        <a href="#project" class="btn btn-primary">
+                            <i class="fas fa-briefcase"></i> Lihat Portfolio
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i> Hubungi Saya
+                        </a>
+                    </div>
+                </div>
+                <div class="welcome-image">
+                    <div class="profile-img-container">
+                        <div class="profile-glow"></div>
+                        <div class="profile-img-wrapper">
+                            <img src="f3.jpg" alt="Profile" class="profile-img">
+                        </div>
+                        <div class="orbit">
+                            <div class="orbit-icon"><i class="fas fa-code"></i></div>
+                            <div class="orbit-icon"><i class="fas fa-palette"></i></div>
+                            <div class="orbit-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <div class="orbit-icon"><i class="fas fa-database"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Data Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">OBOUT ME</h2>
+            <div class="personal-data">
+                <div class="personal-data-content">
+                    <div class="profile-showcase">
+                        <div class="profile-frame">
+                            <div class="profile-frame-inner">
+                                <img src="fotod1.jpg" alt="Personal" class="profile-frame-img">
+                            </div>
+                        </div>
+                        <div class="profile-badges">
+                            <div class="badge"><i class="fas fa-star"></i></div>
+                            <div class="badge"><i class="fas fa-trophy"></i></div>
+                            <div class="badge"><i class="fas fa-award"></i></div>
+                        </div>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-user"></i></div>
+                            <div class="info-content">
+                                <div class="info-label">Tentang Saya</div>
+                                <div class="info-value">Saya adalah mahasiswa Sistem Informasi yang memiliki minat besar dalam bidang pengembangan web dan teknologi digital. Saya memiliki pengalaman dalam mengembangkan beberapa proyek aplikasi berbasis web menggunakan PHP, Laravel, serta pengelolaan database. Selain itu, saya juga telah menyelesaikan Praktik Kerja Lapangan (PKL) di perusahaan pengembang website, di mana saya memperoleh pengalaman langsung dalam pembuatan dan pengelolaan sistem berbasis web. Saya memiliki semangat belajar yang tinggi, mampu bekerja secara bertanggung jawab, dan terus berusaha mengembangkan kemampuan di bidang teknologi.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="education-title">S1 Sistem Informasi</h3>
+                    <p class="education-institution">Universitas Putra Indonesia YPTK Padang</p>
+                    <p class="education-period">
+                        <i class="fas fa-calendar"></i> 2025 - Sekarang
+                    </p>
+                    <p class="education-description">
+                        Web Development | Database Management | Information Systems
+                    </p>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 class="education-title">SMK </h3>
+                    <p class="education-institution">SMKN 1 Koto XI Tarusan</p>
+                    <p class="education-period">
+                        <i class="fas fa-calendar"></i> 2022 - 2025
+                    </p>
+                    <p class="education-description">
+                        Jurusan Rekayasa Perangkat Lunak | Best Student Award 2025.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Soft Skill</h2>
+            <div class="skills-container">
+                <div class="">
+                    <div class="circular-progress" style="--progress: 90;">
+                        <svg>
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            
+                        </svg>
+                        
+                    </div>
+                    <div class="">
+                        
+                    </div>
+                    
+                </div>
+
+                <div class="skill-item">
+                    <div class="circular-progress" style="--progress: 85;">
+                        <svg>
+                            <circle cx="80" cy="80" r="70"></circle>
+                            <circle cx="80" cy="80" r="70" style="--progress: 85;"></circle>
+                        </svg>
+                        <div class="percentage">85%</div>
+                    </div>
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="skill-name">Database</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+
+
+                <div class="skill-item">
+                    <div class="circular-progress" style="--progress: 70;">
+                        <svg>
+                            <circle cx="80" cy="80" r="70"></circle>
+                            <circle cx="80" cy="80" r="70" style="--progress: 70;"></circle>
+                        </svg>
+                        <div class="percentage">70%</div>
+                    </div>
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="skill-name">Python</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="circular-progress" style="--progress: 90;">
+                        <svg>
+                            <circle cx="80" cy="80" r="70"></circle>
+                            <circle cx="80" cy="80" r="70" style="--progress: 90;"></circle>
+                        </svg>
+                        <div class="percentage">90%</div>
+                    </div>
+                    <div class="skill-icon">
+                        <i class="fab fa-php"></i>
+                    </div>
+                    <div class="skill-name">PHP</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="circular-progress" style="--progress: 95;">
+                        <svg>
+                            <circle cx="80" cy="80" r="70"></circle>
+                            <circle cx="80" cy="80" r="70" style="--progress: 95;"></circle>
+                        </svg>
+                        <div class="percentage">95%</div>
+                    </div>
+                    <div class="skill-icon">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <div class="skill-name">MS Word</div>
+                    <div class="skill-level">Expert</div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="circular-progress" style="--progress: 85;">
+                        <svg>
+                            <circle cx="80" cy="80" r="70"></circle>
+                            <circle cx="80" cy="80" r="70" style="--progress: 85;"></circle>
+                        </svg>
+                        <div class="percentage">85%</div>
+                    </div>
+                    <div class="skill-icon">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <div class="skill-name">MS Excel</div>
+                    <div class="skill-level">Expert</div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="circular-progress" style="--progress: 85;">
+                        <svg>
+                            <circle cx="80" cy="80" r="70"></circle>
+                            <circle cx="80" cy="80" r="70" style="--progress: 85;"></circle>
+                        </svg>
+                        <div class="percentage">85%</div>
+                    </div>
+                    <div class="skill-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="skill-name">Design</div>
+                    <div class="skill-level">Advanced</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+     <section id="project">
+        <div class="container">
+            <h2 class="section-title">Project</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <div class="certificate-image-container">
+                        <img src="b.jpg" alt="Certificate 1" class="certificate-image">
+                        <div class="certificate-overlay">
+                            <button class="certificate-view-btn" onclick="openModal('b.jpg')">
+                                <i class="fas fa-search-plus"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Website Sistem Informasi Data Mahasiswa | Project Akademik</h3>
+                        <p class="certificate-issuer">
+                            <i class="fas fa-laptop-code"></i> Personal Project
+                        </p>
+                        <p class="certificate-date">
+                            <i class="fas fa-calendar"></i> Januari 2026
+                        </p>
+                        <p>Project ini merupakan aplikasi Sistem Informasi Data Mahasiswa yang dikembangkan sebagai tugas pada akhir semester. Sistem ini dibuat menggunakan bahasa pemrograman PHP.
+                            Melalui aplikasi ini, pengguna dapat melakukan pengelolaan data mahasiswa seperti menambah, menampilkan, mengubah, dan menghapus. Project ini membantu saya memahami konsep manajemen basis data, implementasi CRUD (Create, Read, Update, Delete), serta pengembangan aplikasi web dinamis berbasis PHP.</p>
+                        <span class="certificate-badge">Project</span>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <div class="certificate-image-container">
+                        <img src="m.jpg" alt="Certificate 2" class="certificate-image">
+                        <div class="certificate-overlay">
+                            <button class="certificate-view-btn" onclick="openModal('m.jpg')">
+                                <i class="fas fa-search-plus"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Project Website Booking Cafe | Praktik Kerja Lapangan</h3>
+                        <p class="certificate-issuer">
+                            <i class="fas fa-laptop-code"></i> Personal Project
+                        </p>
+                        <p class="certificate-date">
+                            <i class="fas fa-calendar"></i> Februari 2025
+                        </p>
+                        <P>Project ini dikembangkan selama pelaksanaan Praktik Kerja Lapangan (PKL) di CV. Mediatama Web Indonesia. Website ini merupakan sistem pemesanan tempat (booking) cafe berbasis web yang dibangun menggunakan bahasa pemrograman PHP dan terintegrasi dengan database MySQL.
+                            Melalui project ini, saya menerapkan konsep pengembangan sistem web dinamis dengan fitur seperti halaman utama pemesanan, pengelolaan data booking pelanggan, serta dashboard admin untuk mengelola data pemesanan dan informasi cafe. </p>
+                        <span class="certificate-badge">Certification</span>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <div class="certificate-image-container">
+                        <img src="p.jpg" alt="Certificate 2" class="certificate-image">
+                        <div class="certificate-overlay">
+                            <button class="certificate-view-btn" onclick="openModal('p.jpg')">
+                                <i class="fas fa-search-plus"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Project Desain Poster | Kompetisi Poster Internasional 2024</h3>
+                        <p class="certificate-issuer">
+                            <i class="fas fa-laptop-code"></i> Personal Project
+                        </p>
+                        <p class="certificate-date">
+                            <i class="fas fa-calendar"></i> Februari 2024
+                        </p>
+                        <p>Project ini merupakan karya desain poster yang dibuat untuk mengikuti Lomba Poster Internasional 2024 yang diselenggarakan oleh Dinas Pendidikan Provinsi Sumatera Barat. Poster dirancang menggunakan aplikasi CorelDRAW dengan memperhatikan komposisi visual, tipografi, dan penyampaian pesan yang efektif. 
+                            Melalui project ini, saya mengembangkan kreativitas dalam desain grafis serta kemampuan dalam menyampaikan pesan secara visual melalui media digital.</P>
+                        <span class="certificate-badge">Project</span>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <div class="certificate-image-container">
+                        <img src="n.jpg" alt="Certificate 3" class="certificate-image">
+                        <div class="certificate-overlay">
+                            <button class="certificate-view-btn" onclick="openModal('n.jpg')">
+                                <i class="fas fa-search-plus"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Website E-Commerce | Tugas Akhir Kelulusan</h3>
+                        <p class="certificate-issuer">
+                            <i class="fas fa-laptop-code"></i> Personal Project
+                        </p>
+                        <p class="certificate-date">
+                            <i class="fas fa-calendar"></i> Maret 2025
+                        </p>
+                        <p>Project ini merupakan website E-Commerce berbasis web yang saya kembangkan sebagai tugas akhir dan salah satu syarat kelulusan SMK pada tahun 2025. Sistem ini dibangun menggunakan framework Laravel, dengan tampilan antarmuka menggunakan StartBootstrap, serta terintegrasi dengan database untuk pengelolaan data secara dinamis.
+                            Melalui project ini, saya mengembangkan kemampuan dalam merancang dan membangun aplikasi web, mengelola database, serta mengimplementasikan berbagai fitur seperti sistem login pengguna, dashboard admin, manajemen produk, serta proses penjualan dan pembelian produk.</p>
+                        <span class="certificate-badge">Competion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates">
+        <div class="container">
+            <h2 class="section-title">Certification</h2>
+            <div class="certificates-grid">
+
+            <div class="certificate-card">
+                    <div class="certificate-image-container">
+                        <img src="c.jpg" alt="Certificate 3" class="certificate-image">
+                        <div class="certificate-overlay">
+                            <button class="certificate-view-btn" onclick="openModal('c.jpg')">
+                                <i class="fas fa-search-plus"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Sertifikat Uji Kompetensi | Rekayasa Perangkat Lunak</h3>
+                        <p class="certificate-issuer">
+                            <i class="fab fa-free-code-certifiocation"></i> Uji Kompetensi Keahlian (UKK)
+                        </p>
+                        <p class="certificate-date">
+                            <i class="fas fa-calendar"></i> April 2025
+                        </p>
+                        <p>Sertifikat ini menunjukkan bahwa saya telah berhasil menyelesaikan Uji Kompetensi Keahlian (UKK) pada bidang Rekayasa Perangkat Lunak, khususnya dalam Pengelolaan Basis Data dengan predikat Sangat Kompeten.
+                            Melalui uji kompetensi ini, saya dinilai memiliki kemampuan dalam merancang, mengelola, dan mengimplementasikan sistem basis data yang digunakan dalam pengembangan aplikasi berbasis web. Kompetensi ini mencakup pemahaman tentang struktur database, pengolahan data, serta penerapan database dalam sistem aplikasi.
+                            Pengalaman ini memperkuat kemampuan teknis saya dalam pengembangan web dan manajemen data yang menjadi bagian penting dalam pembangunan sistem informasi berbasis teknologi.</p>
+                        <span class="certificate-badge">Certification</span>
+                    </div>
+                </div>
+
+                <div class="certificate-card">
+                    <div class="certificate-image-container">
+                        <img src="a.jpg" alt="Certificate 3" class="certificate-image">
+                        <div class="certificate-overlay">
+                            <button class="certificate-view-btn" onclick="openModal('a.jpg')">
+                                <i class="fas fa-search-plus"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Sertifikat Praktik Kerja Lapangan | Pengembangan Website</h3>
+                        <p class="certificate-issuer">
+                            <i class="fas fa-certification"></i> PKL VC. Mediatama Web Indonesia
+                        </p>
+                        <p class="certificate-date">
+                            <i class="fas fa-calendar"></i> Februari 2025
+                        </p>
+                        <p>Sertifikat ini menunjukkan bahwa saya telah menyelesaikan Praktik Kerja Lapangan (PKL) di CV. Mediatama Web Indonesia pada periode November 2024 – Februari 2025.
+                        Selama pelaksanaan PKL, saya memperoleh pengalaman langsung dalam proses pengembangan website, pengelolaan database, serta memahami alur kerja dalam lingkungan perusahaan berbasis teknologi. Saya juga terlibat dalam pembuatan project website serta mempelajari penerapan konsep pemrograman web menggunakan PHP dan database MySQL.
+                        Melalui pengalaman ini, saya mengembangkan kemampuan teknis, tanggung jawab dalam menyelesaikan tugas, serta pemahaman mengenai proses kerja profesional di bidang pengembangan web.</p>
+                        <span class="certificate-badge">Certification</span>
+                    </div>
+                </div>
+
+                <div class="certificate-card">
+                    <div class="certificate-image-container">
+                        <img src="ser.jpeg" alt="Certificate 1" class="certificate-image">
+                        <div class="certificate-overlay">
+                            <button class="certificate-view-btn" onclick="openModal('ser.jpeg')">
+                                <i class="fas fa-search-plus"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Sertifikat Partisipasi | Lomba Voice Over</h3>
+                        <p class="certificate-issuer">
+                            <i class="fas fa-microphone"></i> Radio Suska FM
+                        </p>
+                        <p class="certificate-date">
+                            <i class="fas fa-calendar"></i> Oktober - November 2025
+                        </p>
+                        <p>Sertifikat ini menunjukkan partisipasi saya dalam kompetisi Voice Over, yang bertujuan untuk mengembangkan kemampuan dalam komunikasi suara, penghayatan naskah, serta penyampaian pesan secara jelas dan ekspresif.
+                            Melalui kegiatan ini, saya memperoleh pengalaman dalam melatih public speaking, pengolahan intonasi suara, serta kemampuan komunikasi kreatif yang penting dalam berbagai bidang, termasuk media digital dan komunikasi profesional.</p>
+                        <span class="certificate-badge">Certification</span>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <div class="certificate-image-container">
+                        <img src="sert.jpg" alt="Certificate 2" class="certificate-image">
+                        <div class="certificate-overlay">
+                            <button class="certificate-view-btn" onclick="openModal('sert.jpg')">
+                                <i class="fas fa-search-plus"></i> Lihat Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">3rd Math Competition West Sumatera | Peserta</h3>
+                        <p class="certificate-issuer">
+                            <i class="fas fa-calculator"></i> Casio Education Indonesia 
+                        </p>
+                        <p class="certificate-date">
+                            <i class="fas fa-calendar"></i> September 2023
+                        </p>
+                        <p>Sertifikat ini menunjukkan partisipasi saya dalam 3rd Math Competition West Sumatera, sebuah kompetisi matematika yang diikuti oleh pelajar dari berbagai sekolah di wilayah Sumatera Barat. Kegiatan ini bertujuan untuk menguji kemampuan berpikir logis, analitis, serta keterampilan dalam memecahkan masalah matematika.
+                            Melalui kompetisi ini, saya memperoleh pengalaman dalam meningkatkan kemampuan berpikir kritis, ketelitian dalam menyelesaikan soal, serta melatih kemampuan menghadapi tantangan akademik secara kompetitif.</p>
+                        <span class="certificate-badge">Certification</span>
+                    </div>
+                </div>     
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Certificate -->
+    <div class="modal" id="certificateModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img src="" alt="Certificate" class="modal-image" id="modalImage">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <h2 class="footer-title">Hubungi Saya</h2>
+            <div class="social-links">
+                <a href="mailto:dinizafira25@gmail.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://www.instagram.com/zafiraa_fd?igsh=anJidnhsa205dnF1" class="social-link" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/dini-zafira-b23173314" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/firaaaaa13" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>dinizafira25@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <span>@zafiraa_fd</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>www.linkedin.com/in/dini-zafira-b23173314</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+62 831-6010-7959</span>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 MyPortfolio. All rights reserved. Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> by Dini Zafira</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.classList.add('hidden');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 2500);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Typing animation
+        const texts = [
+            "Universitas Putra Indonesia YPTK Padang"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedTextElement = document.getElementById('typed-text');
+
+        function typeText() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typedTextElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTextElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(typeText, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeText, 500);
+            } else {
+                setTimeout(typeText, isDeleting ? 50 : 100);
+            }
+        }
+
+        typeText();
+
+        // Modal functions
+        function openModal(imageSrc) {
+            const modal = document.getElementById('certificateModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('certificateModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.getElementById('certificateModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeModal();
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger circular progress animation when visible
+                    if (entry.target.classList.contains('skill-item')) {
+                        const circle = entry.target.querySelector('circle:nth-child(2)');
+                        if (circle) {
+                            const progress = circle.style.getPropertyValue('--progress');
+                            const circumference = 2 * Math.PI * 70;
+                            const offset = circumference - (progress / 100) * circumference;
+                            setTimeout(() => {
+                                circle.style.strokeDashoffset = offset;
+                            }, 300);
+                        }
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Observe all cards with stagger animation
+        document.querySelectorAll('.education-card, .project-card, .certificate-card, .skill-item').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Add hover effect to social links
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) rotate(360deg)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0deg)';
+            });
+        });
+
+        // Dynamic year in footer
+        document.addEventListener('DOMContentLoaded', () => {
+            const year = new Date().getFullYear();
+            const copyrightElement = document.querySelector('.copyright p');
+            if (copyrightElement) {
+                copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2024', year);
+            }
+        });
+
+        // Initialize circular progress animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const circles = document.querySelectorAll('.circular-progress circle:nth-child(2)');
+            circles.forEach(circle => {
+                const circumference = 2 * Math.PI * 70;
+                circle.style.strokeDasharray = circumference;
+                circle.style.strokeDashoffset = circumference;
+            });
+        });
+
+        // Enhanced scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.info-item, .profile-showcase, .welcome-text, .welcome-image');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check
+    </script>
+</body>
+</html>
